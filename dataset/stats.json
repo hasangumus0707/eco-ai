@@ -1,0 +1,65 @@
+{
+  "seed": 42,
+  "split_ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "other_cap_per_source": 400,
+  "classes": {
+    "glass": {
+      "train": 1395,
+      "val": 299,
+      "test": 299,
+      "total": 1993
+    },
+    "metal": {
+      "train": 538,
+      "val": 115,
+      "test": 115,
+      "total": 768
+    },
+    "other": {
+      "train": 1400,
+      "val": 300,
+      "test": 300,
+      "total": 2000
+    },
+    "paper": {
+      "train": 1359,
+      "val": 291,
+      "test": 291,
+      "total": 1941
+    },
+    "plastic": {
+      "train": 604,
+      "val": 129,
+      "test": 130,
+      "total": 863
+    }
+  },
+  "sources": {
+    "glass": {
+      "brown-glass": 607,
+      "green-glass": 614,
+      "white-glass": 772
+    },
+    "metal": {
+      "metal": 768
+    },
+    "other": {
+      "battery": 400,
+      "biological": 400,
+      "clothes": 400,
+      "shoes": 400,
+      "trash": 400
+    },
+    "paper": {
+      "cardboard": 891,
+      "paper": 1050
+    },
+    "plastic": {
+      "plastic": 863
+    }
+  }
+}
