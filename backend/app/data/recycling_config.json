@@ -1,0 +1,51 @@
+{
+  "_aciklama": "Geri dönüşüm kutusu renkleri ülkeye ve belediyeye göre değişir. Buradaki renkler T.C. Sıfır Atık Yönetmeliği'nde önerilen renklerdir; kendi belediyenizin uygulamasına göre bu dosyayı düzenleyebilirsiniz.",
+  "region": "Türkiye – Sıfır Atık Yönetmeliği önerisi",
+  "disclaimer": "Kutu renkleri belediyeden belediyeye farklı olabilir. Bazı belediyeler tüm ambalaj atıklarını tek bir kutuda toplar. Lütfen yerel kuralları kontrol edin.",
+  "classes": {
+    "plastic": {
+      "name_tr": "Plastik",
+      "bin_name": "Plastik atık kutusu",
+      "bin_color": "Sarı",
+      "bin_color_hex": "#F2C200",
+      "advice": [
+        "Şişe ve ambalajların içini tamamen boşaltın, mümkünse hafifçe çalkalayın.",
+        "Şişeleri ezerek hacmini küçültün; kapakları da plastik kutusuna atabilirsiniz.",
+        "Yerel belediyenizin plastik atık toplama kurallarına göre ayrıştırın."
+      ]
+    },
+    "paper": {
+      "name_tr": "Kâğıt / Karton",
+      "bin_name": "Kâğıt atık kutusu",
+      "bin_color": "Mavi",
+      "bin_color_hex": "#1E6FD9",
+      "advice": [
+        "Kâğıt ve kartonları temiz ve kuru tutun.",
+        "Karton kutuları katlayarak düzleştirin.",
+        "Yağlı veya yemek bulaşmış kâğıtlar (ör. pizza kutusunun kirli kısmı) geri dönüşüme uygun olmayabilir; yerel kuralları kontrol edin."
+      ]
+    },
+    "metal": {
+      "name_tr": "Metal",
+      "bin_name": "Metal atık kutusu",
+      "bin_color": "Gri",
+      "bin_color_hex": "#8A9199",
+      "advice": [
+        "İçecek ve konserve kutularının içini boşaltın ve durulayın.",
+        "Keskin kenarlı konserve kapaklarına dikkat edin; kutunun içine bastırabilirsiniz.",
+        "Pil ve elektronik atıkları metal kutusuna atmayın; bunlar ayrı toplanır."
+      ]
+    },
+    "glass": {
+      "name_tr": "Cam",
+      "bin_name": "Cam atık kutusu (kumbara)",
+      "bin_color": "Yeşil",
+      "bin_color_hex": "#2E9E4F",
+      "advice": [
+        "Cam şişe ve kavanozları boşaltıp kapaklarını ayırın.",
+        "Kırık camları kâğıda sararak güvenli şekilde taşıyın.",
+        "Ampul, ayna ve pencere camı farklı bileşimdedir; cam kumbarasına atılmamalıdır."
+      ]
+    }
+  }
+}
