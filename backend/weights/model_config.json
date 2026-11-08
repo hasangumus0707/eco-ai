@@ -1,0 +1,14 @@
+{
+  "model_file": "eco_ai_model.pth",
+  "arch": "mobilenet_v3_large",
+  "class_names": [
+    "glass",
+    "metal",
+    "other",
+    "paper",
+    "plastic"
+  ],
+  "confidence_threshold": 0.823,
+  "test_accuracy": 0.9515,
+  "test_macro_f1": 0.9411
+}

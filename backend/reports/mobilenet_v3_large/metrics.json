@@ -85,8 +85,8 @@
     "n_other_test_images": 300
   },
   "inference_ms_per_image": {
-    "mps": 6.35,
-    "cpu": 40.32
+    "mps": 6.85,
+    "cpu": 39.94
   },
   "model_size_mb": 17.0,
   "parameters_million": 4.21
