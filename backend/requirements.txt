@@ -1,0 +1,4 @@
+# Uygulamayı ÇALIŞTIRMAK için gereken paketler (herkes kurar: Mac + Windows)
+# Backend aşamasında FastAPI paketleri buraya eklenecek.
+torch==2.15.0
+torchvision==0.29.2

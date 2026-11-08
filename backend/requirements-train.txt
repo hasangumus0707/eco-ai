@@ -1,0 +1,6 @@
+# Modeli EĞİTMEK için ek paketler (sadece eğitimi yapan kişi kurar)
+-r requirements.txt
+scikit-learn==1.9.1  # precision, recall, F1, confusion matrix
+matplotlib==3.11.2  # eğitim grafikleri
+tqdm==4.70.1      # ilerleme çubuğu
+kaggle==2.2.5     # veri setini komut satırından indirmek için
