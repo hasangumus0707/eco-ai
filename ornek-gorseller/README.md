@@ -3,27 +3,31 @@
 Bu klasördeki fotoğraflar iki amaçla kullanılır:
 
 1. **Gerçek dünya testi:** Model, Kaggle'daki temiz ürün fotoğraflarıyla eğitildi.
-   Gerçek hayatta (evde, farklı ışıkta, karışık arka planda) çekilen fotoğraflarda
-   ne kadar başarılı olduğunu bu fotoğraflarla ölçüyoruz.
+   Gerçek hayatta (farklı ışıkta, karışık arka planda, ezilmiş/kirli hâlde) çekilen
+   fotoğraflarda ne kadar başarılı olduğunu bu fotoğraflarla ölçüyoruz.
 2. **Sunum demosu:** Sunumda kamera çalışmazsa bu fotoğraflar yüklenerek demo yapılır.
 
 ## Klasörler
 
-| Klasör | Ne konur? |
-|---|---|
-| `plastic/` | Pet şişe, plastik kap, deterjan kutusu… |
-| `paper/` | Gazete, karton kutu, kâğıt… |
-| `metal/` | Kola kutusu, konserve… |
-| `glass/` | Cam şişe, kavanoz… |
-| `other/` | Atık olmayan şeyler: insan, el, araba, yemek, telefon, hayvan… |
+| Klasör | İçerik | Görsel |
+|---|---|---:|
+| `plastic/` | Pet şişe, plastik kap, şişe yığınları | 9 |
+| `paper/` | Karton kutu, gazete, buruşuk kâğıt, kâğıt torba | 7 |
+| `metal/` | İçecek kutusu, konserve, ezilmiş kutular | 11 |
+| `glass/` | Cam şişe, bira/şarap şişesi | 8 |
+| `other/` | Atık olmayan şeyler: insan, kedi, köpek, araba, yemek, telefon, ağaç | 13 |
 
-Her klasöre **5–10 fotoğraf** önerilir. Dosya adı önemli değildir (jpg, png, webp).
+## Kaynak ve lisans
 
-## ⚠️ Telif hakkı
+Görsellerin tamamı **Wikimedia Commons**'tan alınmıştır ve açık lisanslıdır
+(CC0, kamu malı, CC BY, CC BY-SA). Fotoğraflar bu projeye ait değildir. Her görselin yazarı,
+lisansı ve kaynak bağlantısı **[`KAYNAKLAR.md`](KAYNAKLAR.md)** dosyasındadır
+(makine okunabilir sürümü: `KAYNAKLAR.csv`).
 
-GitHub reposu **herkese açık**. Bu klasöre yalnızca **kendi çektiğiniz** fotoğrafları koyun.
-İnternetten bulunan görselleri test için kullanabilirsiniz ama repoya yüklemeyin; onları
-`ornek-gorseller/_internet/` altına koyun (bu klasör git'e girmez).
+**Yeni fotoğraf eklerken:** Repo herkese açık olduğu için yalnızca kendi çektiğiniz ya da
+açık lisanslı fotoğrafları koyun. Açık lisanslı bir görsel eklerseniz `KAYNAKLAR.md`'ye satır ekleyin.
+Lisansı belirsiz görselleri yalnızca yerel test için `ornek-gorseller/_internet/<sınıf>/` altına
+koyun. Bu klasör git'e girmez ama test scripti onu da tarar.
 
 ## Testi çalıştırma
 

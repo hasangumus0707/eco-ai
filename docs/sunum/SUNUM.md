@@ -183,7 +183,9 @@ hesapladık. Sonuçta sistem bazen "emin değilim" diyor, ama söylediği kesin 
    olduğunu söyleyin.
 2. **Analiz Et** sayfası: Üstteki yeşil rozeti gösterin: *"Model hazır: mobilenet_v3_large · #ea55701c5f53"*. Bu, gerçek
    model dosyasının parmak izi.
-3. **Plastik şişe** fotoğrafı yükleyin (`ornek-gorseller/plastic/`) → sonuç, güven skoru, olasılık grafiği, kutu önerisi.
+3. **Plastik şişe** fotoğrafı yükleyin (`ornek-gorseller/plastic/plastic_10.jpg`) → sonuç, güven skoru, olasılık grafiği, kutu önerisi.
+   Testte doğru ve yüksek güvenle tanınan "güvenli" demo görselleri: `plastic_10`, `paper_02`, `metal_02`,
+   `metal_06`, `glass_02`, `glass_03`, ve reddetme için `other_03` (kedi).
 4. **Kamerayla Çek:** Elinizdeki bir kola kutusunu veya kâğıdı canlı çekin.
 5. **Atık olmayan bir şey** gösterin (kendi yüzünüz, bir ayakkabı vb.) → "Geri dönüştürülebilir atık tespit edilmedi"
    veya "güvenilir sonuç verilemedi" mesajını gösterin. **Bu, sistemin en güçlü yanı; mutlaka gösterin.**
