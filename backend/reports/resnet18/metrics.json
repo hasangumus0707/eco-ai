@@ -1,0 +1,93 @@
+{
+  "arch": "resnet18",
+  "best_epoch": 14,
+  "test_images": 1135,
+  "accuracy": 0.9497797356828194,
+  "macro_precision": 0.9411109437123797,
+  "macro_recall": 0.9397023986024434,
+  "macro_f1": 0.9402533305735872,
+  "per_class": {
+    "glass": {
+      "precision": 0.9692832764505119,
+      "recall": 0.9498327759197325,
+      "f1": 0.9594594594594594,
+      "support": 299
+    },
+    "metal": {
+      "precision": 0.8898305084745762,
+      "recall": 0.9130434782608695,
+      "f1": 0.9012875536480687,
+      "support": 115
+    },
+    "other": {
+      "precision": 0.9448051948051948,
+      "recall": 0.97,
+      "f1": 0.9572368421052632,
+      "support": 300
+    },
+    "paper": {
+      "precision": 0.9656357388316151,
+      "recall": 0.9656357388316151,
+      "f1": 0.9656357388316151,
+      "support": 291
+    },
+    "plastic": {
+      "precision": 0.936,
+      "recall": 0.9,
+      "f1": 0.9176470588235294,
+      "support": 130
+    }
+  },
+  "confusion_matrix": [
+    [
+      284,
+      6,
+      4,
+      1,
+      4
+    ],
+    [
+      2,
+      105,
+      5,
+      1,
+      2
+    ],
+    [
+      1,
+      2,
+      291,
+      6,
+      0
+    ],
+    [
+      1,
+      2,
+      5,
+      281,
+      2
+    ],
+    [
+      5,
+      3,
+      3,
+      2,
+      117
+    ]
+  ],
+  "open_set": {
+    "threshold": 0.881,
+    "recyclable_coverage": 0.9125748502994012,
+    "recyclable_accuracy_when_accepted": 0.979002624671916,
+    "other_false_accept_rate": 0.02,
+    "n_recyclable": 835,
+    "n_other": 300,
+    "n_other_test_images": 300
+  },
+  "inference_ms_per_image": {
+    "mps": 4.67,
+    "cpu": 7.73
+  },
+  "model_size_mb": 44.8,
+  "parameters_million": 11.18
+}

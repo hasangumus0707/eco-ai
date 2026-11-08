@@ -1,0 +1,93 @@
+{
+  "arch": "mobilenet_v3_large",
+  "best_epoch": 4,
+  "test_images": 1135,
+  "accuracy": 0.9515418502202643,
+  "macro_precision": 0.9380288594233898,
+  "macro_recall": 0.944751439506258,
+  "macro_f1": 0.941143881932574,
+  "per_class": {
+    "glass": {
+      "precision": 0.9754385964912281,
+      "recall": 0.9297658862876255,
+      "f1": 0.952054794520548,
+      "support": 299
+    },
+    "metal": {
+      "precision": 0.8760330578512396,
+      "recall": 0.9217391304347826,
+      "f1": 0.8983050847457628,
+      "support": 115
+    },
+    "other": {
+      "precision": 0.966996699669967,
+      "recall": 0.9766666666666667,
+      "f1": 0.9718076285240465,
+      "support": 300
+    },
+    "paper": {
+      "precision": 0.9625850340136054,
+      "recall": 0.9725085910652921,
+      "f1": 0.9675213675213675,
+      "support": 291
+    },
+    "plastic": {
+      "precision": 0.9090909090909091,
+      "recall": 0.9230769230769231,
+      "f1": 0.916030534351145,
+      "support": 130
+    }
+  },
+  "confusion_matrix": [
+    [
+      278,
+      10,
+      4,
+      1,
+      6
+    ],
+    [
+      1,
+      106,
+      2,
+      3,
+      3
+    ],
+    [
+      1,
+      1,
+      293,
+      4,
+      1
+    ],
+    [
+      1,
+      1,
+      4,
+      283,
+      2
+    ],
+    [
+      4,
+      3,
+      0,
+      3,
+      120
+    ]
+  ],
+  "open_set": {
+    "threshold": 0.823,
+    "recyclable_coverage": 0.8970059880239521,
+    "recyclable_accuracy_when_accepted": 0.9759679572763685,
+    "other_false_accept_rate": 0.0033333333333333335,
+    "n_recyclable": 835,
+    "n_other": 300,
+    "n_other_test_images": 300
+  },
+  "inference_ms_per_image": {
+    "mps": 6.35,
+    "cpu": 40.32
+  },
+  "model_size_mb": 17.0,
+  "parameters_million": 4.21
+}

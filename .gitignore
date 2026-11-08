@@ -19,6 +19,10 @@ frontend/dist/
 # --- macOS ---
 .DS_Store
 
-# NOT: backend/weights/*.pth dosyaları BİLEREK hariç tutulmadı.
-# Eğitilmiş model (~20-45 MB) GitHub'a yüklenecek, böylece arkadaşların
-# modeli yeniden eğitmeden uygulamayı çalıştırabilir.
+
+# --- Model ağırlıkları ---
+# Eğitim sırasında oluşan aday modeller git'e girmez;
+# yalnızca uygulamanın kullandığı seçilmiş model (eco_ai_model.pth) yüklenir.
+backend/weights/*.pth
+!backend/weights/eco_ai_model.pth
+backend/reports/*.log
