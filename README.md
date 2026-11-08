@@ -201,6 +201,34 @@ En sık hata: 10 cam görseli metal olarak tahmin edildi (ikisi de parlak, yans�
 
 Ham sonuçlar: `backend/reports/<model>/metrics.json` ve `classification_report.txt`.
 
+### Gerçek dünya testi (veri seti dışı fotoğraflar)
+
+Yukarıdaki %95, eğitim görselleriyle aynı türden (temiz, sade arka planlı) fotoğraflarda ölçüldü. Modelin
+"laboratuvar dışında" nasıl davrandığını görmek için Wikimedia Commons'tan **48 açık lisanslı fotoğrafla** ayrı bir
+test yaptık (`ornek-gorseller/`). Bu fotoğraflarda karışık arka plan, ezilmiş kutular ve şişe yığınları var.
+"Diğer" klasöründe de eğitimde **hiç görülmemiş** insan, kedi, köpek, araba, yemek, telefon ve ağaç fotoğrafları var.
+
+| Gerçek sınıf | Görsel | ✅ Doğru | ⚠️ Emin değil (zararsız) | ❌ Yanlış (zararlı) |
+|---|---:|---:|---:|---:|
+| Plastik | 9 | 4 | 5 | 0 |
+| Kâğıt | 7 | 3 | 3 | 1 |
+| Metal | 11 | 5 | 6 | 0 |
+| Cam | 8 | 6 | 2 | 0 |
+| Diğer | 13 | 13 | 0 | 0 |
+| **Toplam** | **48** | **31** | **16** | **1** |
+
+- **Doğru sonuç oranı: %64,6.** Test kümesindeki %95'ten belirgin şekilde düşük. Bu, veri dağılımı farkının
+  (*domain shift*) beklenen etkisi.
+- **Zararlı hata oranı: %2,1 (1/48).** Model emin olmadığında yanlış bir kutu önermek yerine "emin değilim" diyor.
+  Güven eşiği tam olarak bunun için var.
+- **Hiç görülmemiş nesnelerin 13'ünün 13'ü reddedildi.**
+- Zayıf noktalar: asfalt üzerinde **ezilmiş içecek kutuları** ve **yığın hâlindeki plastik şişeler** genellikle
+  "diğer" sanıldı. Model tek, temiz ve bütün nesnelere alışkın.
+- Örneklem küçük (48 görsel). Sonuçlar bir eğilim gösterir, kesin bir başarı oranı değildir.
+
+Testi tekrar çalıştırmak için: `cd backend && python -m training.evaluate_real`.
+Görsel bazında sonuçlar: `backend/reports/real_world/results.json`.
+
 ---
 
 ## 🛡 Bilinmeyen Nesne (Out-of-Distribution) Kontrolü
@@ -223,8 +251,9 @@ Test kümesindeki etkisi:
 | Kesin sonuçların doğruluğu | **97,6%** |
 | "Diğer" görsellerini yanlışlıkla atık sanma oranı | **0,3%** (1/300) |
 
-**Sınırları:** Testteki "diğer" görselleri, eğitimde görülen türden nesnelerdir. İnsan, araç, hayvan gibi hiç görülmemiş
-nesnelerde başarı ölçülmemiştir ve daha düşük olabilir. Test sırasında küflü bir ekmek dilimi, rengi ve dokusu kartona
+**Sınırları:** Testteki "diğer" görselleri, eğitimde görülen türden nesnelerdir. Hiç görülmemiş nesneler (insan, araç,
+hayvan, yemek, telefon) için yaptığımız küçük [gerçek dünya testinde](#gerçek-dünya-testi-veri-seti-dışı-fotoğraflar)
+13 görselin 13'ü reddedildi. Ama örneklem küçük ve bu bir garanti değil. Test sırasında küflü bir ekmek dilimi, rengi ve dokusu kartona
 benzediği için **%99,9 güvenle "kâğıt"** olarak sınıflandırıldı. Bu örnek, güven skorunun neden garanti olmadığını gösterir.
 
 ---
@@ -376,7 +405,8 @@ eco-ai/
 ## ⚠️ Bilinen Sınırlamalar
 
 1. **Veri dağılımı farkı:** Eğitim görselleri çoğunlukla internetten toplanmış, sade arka planlı ürün fotoğraflarıdır.
-   Evde çekilmiş, karışık arka planlı, ezilmiş veya kirli atık fotoğraflarında başarı düşebilir.
+   Evde çekilmiş, karışık arka planlı, ezilmiş veya kirli atık fotoğraflarında başarı düşer. Gerçek dünya testinde
+   doğru sonuç oranı %64,6 oldu, test kümesinde ise %95.
 2. **Plastik ve metal en zayıf sınıflar** (~%92 recall). Bu sınıflarda en az eğitim görseli vardı (863 ve 768).
    Parlak pet şişeler metal veya cam ile karıştırılabilir.
 3. **Hiç görülmemiş nesneler:** İnsan, araç, hayvan gibi nesneler eğitimde yoktu. "Diğer" sınıfı ve güven eşiği bunları

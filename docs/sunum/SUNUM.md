@@ -231,9 +231,12 @@ olmadan çalışıyor.
 
 **S: %95 doğruluk gerçek hayatta da geçerli mi?**
 C: Hayır, ve bunu dürüstçe belirtiyoruz. %95, veri setinin test kümesinde ölçüldü. Bu görseller eğitim görselleriyle
-benzer türde, temiz arka planlı fotoğraflar. Gerçek hayatta başarı daha düşük olabilir. Bunun için ayrı bir gerçek
-dünya testi hazırladık (`ornek-gorseller/`, `training/evaluate_real.py`).
-*(Gerçek dünya testi yapıldıysa sonucunu buraya ekleyin: `backend/reports/real_world/results.md`)*
+benzer türde, temiz arka planlı fotoğraflar. Bu yüzden veri seti dışından 48 fotoğrafla ayrı bir gerçek dünya testi
+yaptık (`ornek-gorseller/`, `training/evaluate_real.py`):
+- Doğru sonuç oranı **%64,6**. Düşüş, veri dağılımı farkından (*domain shift*) kaynaklanıyor.
+- Ama **zararlı hata sadece %2,1 (1/48)**. Model emin olmadığında yanlış kutu önermek yerine "emin değilim" diyor.
+- Eğitimde hiç görmediği insan, kedi, araba, yemek gibi **13 nesnenin 13'ünü reddetti**.
+- En zor durumlar ezilmiş içecek kutuları ve şişe yığınlarıydı. Gelecekte bu tür fotoğraflarla modeli güçlendirebiliriz.
 
 **S: Model hiç görmediği bir şey gelirse ne olur?**
 C: Softmax her zaman bir cevap verir, bu yüzden iki önlem aldık: "Diğer" sınıfı ve doğrulama verisinden hesaplanan

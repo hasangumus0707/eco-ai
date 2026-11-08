@@ -1,0 +1,770 @@
+[
+  {
+    "file": "plastic/plastic_01.jpg",
+    "true": "plastic",
+    "predicted": "other",
+    "confidence": 0.5622,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0023,
+      "metal": 0.1199,
+      "other": 0.5622,
+      "paper": 0.0028,
+      "plastic": 0.3127
+    }
+  },
+  {
+    "file": "plastic/plastic_03.jpg",
+    "true": "plastic",
+    "predicted": "plastic",
+    "confidence": 0.4408,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.1394,
+      "metal": 0.3875,
+      "other": 0.0319,
+      "paper": 0.0004,
+      "plastic": 0.4408
+    }
+  },
+  {
+    "file": "plastic/plastic_04.jpg",
+    "true": "plastic",
+    "predicted": "other",
+    "confidence": 0.9926,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 0.002,
+      "other": 0.9926,
+      "paper": 0.0042,
+      "plastic": 0.0012
+    }
+  },
+  {
+    "file": "plastic/plastic_06.jpg",
+    "true": "plastic",
+    "predicted": "plastic",
+    "confidence": 0.873,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.1191,
+      "metal": 0.0013,
+      "other": 0.0014,
+      "paper": 0.0051,
+      "plastic": 0.873
+    }
+  },
+  {
+    "file": "plastic/plastic_07.jpg",
+    "true": "plastic",
+    "predicted": "other",
+    "confidence": 0.9129,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0049,
+      "metal": 0.0136,
+      "other": 0.9129,
+      "paper": 0.0177,
+      "plastic": 0.0508
+    }
+  },
+  {
+    "file": "plastic/plastic_08.jpg",
+    "true": "plastic",
+    "predicted": "glass",
+    "confidence": 0.6461,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.6461,
+      "metal": 0.2308,
+      "other": 0.0271,
+      "paper": 0.0131,
+      "plastic": 0.0828
+    }
+  },
+  {
+    "file": "plastic/plastic_09.jpg",
+    "true": "plastic",
+    "predicted": "plastic",
+    "confidence": 0.9068,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.073,
+      "metal": 0.0154,
+      "other": 0.0003,
+      "paper": 0.0045,
+      "plastic": 0.9068
+    }
+  },
+  {
+    "file": "plastic/plastic_10.jpg",
+    "true": "plastic",
+    "predicted": "plastic",
+    "confidence": 0.9994,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0006,
+      "metal": 0.0,
+      "other": 0.0,
+      "paper": 0.0,
+      "plastic": 0.9994
+    }
+  },
+  {
+    "file": "plastic/plastic_11.jpg",
+    "true": "plastic",
+    "predicted": "plastic",
+    "confidence": 0.8423,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.155,
+      "metal": 0.0022,
+      "other": 0.0001,
+      "paper": 0.0004,
+      "plastic": 0.8423
+    }
+  },
+  {
+    "file": "paper/paper_02.jpg",
+    "true": "paper",
+    "predicted": "paper",
+    "confidence": 1.0,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 0.0,
+      "other": 0.0,
+      "paper": 1.0,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "paper/paper_06.jpg",
+    "true": "paper",
+    "predicted": "paper",
+    "confidence": 0.9999,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 0.0,
+      "other": 0.0001,
+      "paper": 0.9999,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "paper/paper_07.jpg",
+    "true": "paper",
+    "predicted": "paper",
+    "confidence": 0.6443,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.3375,
+      "metal": 0.009,
+      "other": 0.0025,
+      "paper": 0.6443,
+      "plastic": 0.0066
+    }
+  },
+  {
+    "file": "paper/paper_08.jpg",
+    "true": "paper",
+    "predicted": "glass",
+    "confidence": 0.88,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "wrong",
+    "probabilities": {
+      "glass": 0.88,
+      "metal": 0.0381,
+      "other": 0.0115,
+      "paper": 0.0205,
+      "plastic": 0.0499
+    }
+  },
+  {
+    "file": "paper/paper_09.jpg",
+    "true": "paper",
+    "predicted": "other",
+    "confidence": 0.99,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0001,
+      "metal": 0.0,
+      "other": 0.99,
+      "paper": 0.0038,
+      "plastic": 0.0061
+    }
+  },
+  {
+    "file": "paper/paper_11.jpg",
+    "true": "paper",
+    "predicted": "paper",
+    "confidence": 0.9988,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0001,
+      "metal": 0.0,
+      "other": 0.0011,
+      "paper": 0.9988,
+      "plastic": 0.0001
+    }
+  },
+  {
+    "file": "paper/paper_12.jpg",
+    "true": "paper",
+    "predicted": "paper",
+    "confidence": 0.6235,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 0.0,
+      "other": 0.3764,
+      "paper": 0.6235,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "metal/metal_01.jpg",
+    "true": "metal",
+    "predicted": "metal",
+    "confidence": 0.9707,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0158,
+      "metal": 0.9707,
+      "other": 0.0041,
+      "paper": 0.0041,
+      "plastic": 0.0052
+    }
+  },
+  {
+    "file": "metal/metal_02.jpg",
+    "true": "metal",
+    "predicted": "metal",
+    "confidence": 1.0,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 1.0,
+      "other": 0.0,
+      "paper": 0.0,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "metal/metal_03.jpg",
+    "true": "metal",
+    "predicted": "metal",
+    "confidence": 0.9781,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0016,
+      "metal": 0.9781,
+      "other": 0.0192,
+      "paper": 0.0004,
+      "plastic": 0.0008
+    }
+  },
+  {
+    "file": "metal/metal_04.jpg",
+    "true": "metal",
+    "predicted": "metal",
+    "confidence": 0.9166,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0417,
+      "metal": 0.9166,
+      "other": 0.0056,
+      "paper": 0.0357,
+      "plastic": 0.0004
+    }
+  },
+  {
+    "file": "metal/metal_06.jpg",
+    "true": "metal",
+    "predicted": "metal",
+    "confidence": 1.0,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 1.0,
+      "other": 0.0,
+      "paper": 0.0,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "metal/metal_07.jpg",
+    "true": "metal",
+    "predicted": "other",
+    "confidence": 0.9682,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0077,
+      "metal": 0.013,
+      "other": 0.9682,
+      "paper": 0.004,
+      "plastic": 0.007
+    }
+  },
+  {
+    "file": "metal/metal_08.jpg",
+    "true": "metal",
+    "predicted": "other",
+    "confidence": 0.8684,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0013,
+      "metal": 0.0009,
+      "other": 0.8684,
+      "paper": 0.1237,
+      "plastic": 0.0055
+    }
+  },
+  {
+    "file": "metal/metal_09.jpg",
+    "true": "metal",
+    "predicted": "other",
+    "confidence": 0.5567,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0068,
+      "metal": 0.3694,
+      "other": 0.5567,
+      "paper": 0.0605,
+      "plastic": 0.0066
+    }
+  },
+  {
+    "file": "metal/metal_10.jpg",
+    "true": "metal",
+    "predicted": "plastic",
+    "confidence": 0.6034,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0191,
+      "metal": 0.2267,
+      "other": 0.0985,
+      "paper": 0.0524,
+      "plastic": 0.6034
+    }
+  },
+  {
+    "file": "metal/metal_11.jpg",
+    "true": "metal",
+    "predicted": "other",
+    "confidence": 0.688,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0053,
+      "metal": 0.271,
+      "other": 0.688,
+      "paper": 0.0354,
+      "plastic": 0.0004
+    }
+  },
+  {
+    "file": "metal/metal_12.jpg",
+    "true": "metal",
+    "predicted": "other",
+    "confidence": 0.5769,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0004,
+      "metal": 0.0027,
+      "other": 0.5769,
+      "paper": 0.1068,
+      "plastic": 0.3132
+    }
+  },
+  {
+    "file": "glass/glass_01.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9972,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9972,
+      "metal": 0.0001,
+      "other": 0.0,
+      "paper": 0.0,
+      "plastic": 0.0027
+    }
+  },
+  {
+    "file": "glass/glass_02.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9999,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9999,
+      "metal": 0.0,
+      "other": 0.0,
+      "paper": 0.0,
+      "plastic": 0.0001
+    }
+  },
+  {
+    "file": "glass/glass_03.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9957,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9957,
+      "metal": 0.0015,
+      "other": 0.0014,
+      "paper": 0.0006,
+      "plastic": 0.0008
+    }
+  },
+  {
+    "file": "glass/glass_07.jpg",
+    "true": "glass",
+    "predicted": "other",
+    "confidence": 0.6587,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.0113,
+      "metal": 0.001,
+      "other": 0.6587,
+      "paper": 0.3005,
+      "plastic": 0.0285
+    }
+  },
+  {
+    "file": "glass/glass_08.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9821,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9821,
+      "metal": 0.0003,
+      "other": 0.0017,
+      "paper": 0.0156,
+      "plastic": 0.0004
+    }
+  },
+  {
+    "file": "glass/glass_09.jpg",
+    "true": "glass",
+    "predicted": "plastic",
+    "confidence": 0.782,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "rejected",
+    "probabilities": {
+      "glass": 0.2146,
+      "metal": 0.0026,
+      "other": 0.0006,
+      "paper": 0.0002,
+      "plastic": 0.782
+    }
+  },
+  {
+    "file": "glass/glass_11.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9976,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9976,
+      "metal": 0.0001,
+      "other": 0.0005,
+      "paper": 0.0016,
+      "plastic": 0.0002
+    }
+  },
+  {
+    "file": "glass/glass_12.jpg",
+    "true": "glass",
+    "predicted": "glass",
+    "confidence": 0.9874,
+    "is_valid": true,
+    "reason": "ok",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.9874,
+      "metal": 0.0091,
+      "other": 0.0007,
+      "paper": 0.0027,
+      "plastic": 0.0002
+    }
+  },
+  {
+    "file": "other/other_01.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9809,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0026,
+      "metal": 0.0,
+      "other": 0.9809,
+      "paper": 0.0161,
+      "plastic": 0.0004
+    }
+  },
+  {
+    "file": "other/other_02.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.611,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0111,
+      "metal": 0.0152,
+      "other": 0.611,
+      "paper": 0.3597,
+      "plastic": 0.0031
+    }
+  },
+  {
+    "file": "other/other_03.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9901,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.003,
+      "metal": 0.0008,
+      "other": 0.9901,
+      "paper": 0.0056,
+      "plastic": 0.0006
+    }
+  },
+  {
+    "file": "other/other_04.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9649,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0126,
+      "metal": 0.0031,
+      "other": 0.9649,
+      "paper": 0.0149,
+      "plastic": 0.0046
+    }
+  },
+  {
+    "file": "other/other_05.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.7696,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0365,
+      "metal": 0.0015,
+      "other": 0.7696,
+      "paper": 0.1875,
+      "plastic": 0.0049
+    }
+  },
+  {
+    "file": "other/other_06.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9899,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0005,
+      "metal": 0.0038,
+      "other": 0.9899,
+      "paper": 0.0048,
+      "plastic": 0.001
+    }
+  },
+  {
+    "file": "other/other_07.jpg",
+    "true": "other",
+    "predicted": "metal",
+    "confidence": 0.4371,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0254,
+      "metal": 0.4371,
+      "other": 0.3864,
+      "paper": 0.1439,
+      "plastic": 0.0072
+    }
+  },
+  {
+    "file": "other/other_08.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9973,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0,
+      "metal": 0.0,
+      "other": 0.9973,
+      "paper": 0.0027,
+      "plastic": 0.0
+    }
+  },
+  {
+    "file": "other/other_09.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.437,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.114,
+      "metal": 0.0574,
+      "other": 0.437,
+      "paper": 0.3403,
+      "plastic": 0.0513
+    }
+  },
+  {
+    "file": "other/other_11.jpg",
+    "true": "other",
+    "predicted": "paper",
+    "confidence": 0.5211,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.089,
+      "metal": 0.0251,
+      "other": 0.3411,
+      "paper": 0.5211,
+      "plastic": 0.0237
+    }
+  },
+  {
+    "file": "other/other_12.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.9668,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.0188,
+      "metal": 0.0017,
+      "other": 0.9668,
+      "paper": 0.0105,
+      "plastic": 0.0023
+    }
+  },
+  {
+    "file": "other/other_13.jpg",
+    "true": "other",
+    "predicted": "other",
+    "confidence": 0.7637,
+    "is_valid": false,
+    "reason": "not_recyclable",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.1252,
+      "metal": 0.0232,
+      "other": 0.7637,
+      "paper": 0.0731,
+      "plastic": 0.0147
+    }
+  },
+  {
+    "file": "other/other_14.jpg",
+    "true": "other",
+    "predicted": "glass",
+    "confidence": 0.4818,
+    "is_valid": false,
+    "reason": "low_confidence",
+    "outcome": "correct",
+    "probabilities": {
+      "glass": 0.4818,
+      "metal": 0.4759,
+      "other": 0.0032,
+      "paper": 0.0335,
+      "plastic": 0.0056
+    }
+  }
+]
