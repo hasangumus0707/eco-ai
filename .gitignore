@@ -26,3 +26,6 @@ frontend/dist/
 backend/weights/*.pth
 !backend/weights/eco_ai_model.pth
 backend/reports/*.log
+
+# --- Telifli internet görselleri (yalnızca yerel test) ---
+ornek-gorseller/_internet/
