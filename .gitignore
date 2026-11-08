@@ -1,0 +1,24 @@
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# --- Veri seti (çok büyük, GitHub'a yüklenmez; herkes kendisi indirir) ---
+dataset/raw/
+dataset/processed/
+*.zip
+
+# --- Node / Frontend ---
+node_modules/
+frontend/dist/
+.env
+.env.local
+
+# --- macOS ---
+.DS_Store
+
+# NOT: backend/weights/*.pth dosyaları BİLEREK hariç tutulmadı.
+# Eğitilmiş model (~20-45 MB) GitHub'a yüklenecek, böylece arkadaşların
+# modeli yeniden eğitmeden uygulamayı çalıştırabilir.
