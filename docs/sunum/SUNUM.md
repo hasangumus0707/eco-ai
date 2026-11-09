@@ -207,7 +207,8 @@ olmadığında kesin sonuç göstermiyor, güvenlik katmanımız tam olarak bunu
 ## 10. Gelecekte Geliştirilebilecek Özellikler
 
 **Slayt**
-- **Gerçek dünya verisi:** Kendi çektiğimiz fotoğraflarla modeli güçlendirmek
+- **Gerçek dünya verisi:** Kendi çektiğimiz, farklı tarzlarda fotoğraflarla modeli güçlendirmek
+  (TACO ile yaptığımız deney, tek kaynaktan gelen verinin yetmediğini gösterdi)
 - **Daha fazla kategori:** pil, elektronik, organik atık
 - **Nesne tespiti (YOLO):** tek fotoğrafta birden fazla atığı bulmak
 - **Konuma göre kutu rengi:** belediye seçimi
@@ -237,6 +238,17 @@ yaptık (`ornek-gorseller/`, `training/evaluate_real.py`):
 - Ama **zararlı hata sadece %2,1 (1/48)**. Model emin olmadığında yanlış kutu önermek yerine "emin değilim" diyor.
 - Eğitimde hiç görmediği insan, kedi, araba, yemek gibi **13 nesnenin 13'ünü reddetti**.
 - En zor durumlar ezilmiş içecek kutuları ve şişe yığınlarıydı. Gelecekte bu tür fotoğraflarla modeli güçlendirebiliriz.
+
+**S: Gerçek dünya başarısı düşükse neden modeli gerçek fotoğraflarla yeniden eğitmediniz?**
+C: Denedik. TACO veri setinden (sokakta çekilmiş atık fotoğrafları) ve Wikimedia Commons'tan ~2.000 görsel ekleyip iki kez
+yeniden eğittik. Karar kuralını sonuçları görmeden önce koyduk. Sonuç:
+- Kendi gerçek ortam doğrulama setimizde doğruluk **%46'dan %85'e** çıktı. Boş zemini atık sanma oranı %17'den %2'ye düştü.
+- Ama bağımsız 48 görsellik testte iyileşme olmadı: doğru sonuç %65'ten %58'e indi, zararlı hata 1'den 4'e çıktı.
+- İlk denemede ilginç bir hata gördük: çok sayıda şeffaf cam şişe eklediğimiz için model "şeffaf şişe = cam" diye bir
+  kısayol öğrendi ve plastik şişeleri cam sanmaya başladı. İkinci denemede dengeleyince bu hata düzeldi, ama başka
+  sınıflarda hatalar arttı.
+- Kuralımıza uyup **eski modeli koruduk**. Test setine bakarak ayar yapmaya devam etseydik, test sonucumuz güvenilmez
+  olurdu. Çıkarımımız: tek bir kaynaktan eklenen gerçek ortam verisi, farklı tarzdaki fotoğraflara genellenmiyor.
 
 **S: Model hiç görmediği bir şey gelirse ne olur?**
 C: Softmax her zaman bir cevap verir, bu yüzden iki önlem aldık: "Diğer" sınıfı ve doğrulama verisinden hesaplanan

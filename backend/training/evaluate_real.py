@@ -4,6 +4,7 @@ Gerçek dünya testi: kendi çektiğimiz fotoğraflarla modeli değerlendirir.
 Çalıştırma (backend klasöründeyken):
     python -m training.evaluate_real
     python -m training.evaluate_real --folder ../baska/klasor
+    python -m training.evaluate_real --model-file mobilenet_v3_large_v2.pth --threshold 0.7  # aday model
 
 Girdi : ornek-gorseller/{plastic,paper,metal,glass,other}/*.jpg
         (ornek-gorseller/_internet/ altındaki aynı yapıdaki görseller de dahil edilir)
@@ -60,7 +61,10 @@ def outcome(true_cls: str, predicted: str, is_valid: bool) -> str:
 def main() -> None:
     p = argparse.ArgumentParser(description="Gerçek dünya fotoğraflarıyla test")
     p.add_argument("--folder", type=Path, default=DEFAULT_FOLDER)
+    p.add_argument("--model-file", default=None, help="weights/ altındaki aday model (varsayılan: uygulama modeli)")
+    p.add_argument("--threshold", type=float, default=None, help="aday modelin güven eşiği")
     args = p.parse_args()
+    report_dir = REPORT_DIR / Path(args.model_file).stem if args.model_file else REPORT_DIR
 
     items = collect(args.folder)
     if not items:
@@ -68,7 +72,7 @@ def main() -> None:
         print("Klasör yapısı için ornek-gorseller/README.md dosyasına bakın.")
         return
 
-    service = ModelService()
+    service = ModelService(args.model_file, args.threshold)
     print(f"Model: {service.arch} | eşik: {service.threshold} | {len(items)} görsel\n")
 
     rows = []
@@ -125,11 +129,11 @@ def main() -> None:
         lines.append(f"- Atık görsellerinde eşik uygulanmadan en yüksek olasılığın doğru olma oranı: **%{top1 * 100:.1f}**")
     lines += ["", "> \"Diğer\" için doğru sonuç, sistemin kesin bir atık kategorisi göstermemesidir."]
 
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    (REPORT_DIR / "results.json").write_text(json.dumps(rows, indent=2, ensure_ascii=False), encoding="utf-8")
-    (REPORT_DIR / "results.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report_dir.mkdir(parents=True, exist_ok=True)
+    (report_dir / "results.json").write_text(json.dumps(rows, indent=2, ensure_ascii=False), encoding="utf-8")
+    (report_dir / "results.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n" + "\n".join(lines))
-    print(f"\nRapor: {REPORT_DIR / 'results.md'}")
+    print(f"\nRapor: {report_dir / 'results.md'}")
 
 
 if __name__ == "__main__":

@@ -138,19 +138,24 @@ def plot_confusion(cm: np.ndarray, out_path: Path, arch: str, acc: float) -> Non
 def main() -> None:
     p = argparse.ArgumentParser(description="ECO AI model değerlendirme")
     p.add_argument("--arch", choices=SUPPORTED_ARCHS, required=True)
+    p.add_argument("--name", default=None, help="weights/<name>.pth (varsayılan: mimari adı)")
+    p.add_argument("--extra", action="store_true",
+                   help="eşiği Kaggle + gerçek ortam (TACO/Commons) doğrulama verisiyle hesapla")
     p.add_argument("--deploy", action="store_true", help="bu modeli uygulamada kullanılacak model yap")
     p.add_argument("--workers", type=int, default=4)
     args = p.parse_args()
+    args.name = args.name or args.arch
 
     device = get_device()
-    weights_path = WEIGHTS_DIR / f"{args.arch}.pth"
+    weights_path = WEIGHTS_DIR / f"{args.name}.pth"
     if not weights_path.exists():
         raise FileNotFoundError(f"{weights_path} yok. Önce eğit: python -m training.train --arch {args.arch}")
     model, ckpt = load_checkpoint(str(weights_path), device)
-    print(f"Model: {args.arch} (epoch {ckpt['epoch']}) | Donanım: {device}")
+    print(f"Model: {args.name} [{args.arch}] (epoch {ckpt['epoch']}) | Donanım: {device}")
 
     # 1) Eşik: yalnızca doğrulama verisi
-    val_probs, val_labels = predict_all(model, make_loader("val", 64, args.workers), device)
+    val_loader = make_loader("val", 64, args.workers, use_extra=args.extra)
+    val_probs, val_labels = predict_all(model, val_loader, device)
     threshold = calibrate_threshold(val_probs, val_labels)
     print(f"Doğrulama verisinden hesaplanan güven eşiği: {threshold}")
 
@@ -165,6 +170,20 @@ def main() -> None:
 
     open_set = open_set_metrics(test_probs, test_labels, threshold)
 
+    # Gerçek ortam doğrulama görselleri (TACO/Commons val) üzerinde ayrı ölçüm.
+    # Bu görseller eğitimde hiç kullanılmadı; modelin "laboratuvar dışı" başarısını gösterir.
+    real_val = None
+    if args.extra:
+        from torch.utils.data import DataLoader
+        from training.dataset import CombinedDataset
+        extra_ds = CombinedDataset(val_loader.dataset.datasets[1:])
+        rv_probs, rv_labels = predict_all(model, DataLoader(extra_ds, batch_size=64, num_workers=args.workers), device)
+        real_val = {
+            "images": int(len(rv_labels)),
+            "accuracy": float(accuracy_score(rv_labels, rv_probs.argmax(1))),
+            "open_set": open_set_metrics(rv_probs, rv_labels, threshold),
+        }
+
     # 3) Hız ve boyut
     ms_device = measure_speed(model, device)
     model_cpu, _ = load_checkpoint(str(weights_path), torch.device("cpu"))
@@ -174,6 +193,8 @@ def main() -> None:
 
     metrics = {
         "arch": args.arch,
+        "name": args.name,
+        "threshold_calibrated_on": "kaggle+extra val" if args.extra else "kaggle val",
         "best_epoch": ckpt["epoch"],
         "test_images": int(len(test_labels)),
         "accuracy": acc,
@@ -187,12 +208,13 @@ def main() -> None:
         },
         "confusion_matrix": cm.tolist(),
         "open_set": open_set,
+        "real_world_val": real_val,
         "inference_ms_per_image": {str(device): round(ms_device, 2), "cpu": round(ms_cpu, 2)},
         "model_size_mb": round(size_mb, 1),
         "parameters_million": round(n_params / 1e6, 2),
     }
 
-    out_dir = REPORTS_DIR / args.arch
+    out_dir = REPORTS_DIR / args.name
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False), encoding="utf-8")
     (out_dir / "classification_report.txt").write_text(report, encoding="utf-8")
@@ -207,6 +229,11 @@ def main() -> None:
     print(f"  'Diğer' görsellerini atık sanma oranı    : {open_set['other_false_accept_rate']*100:.1f}%  (düşük = iyi)")
     print(f"\nHız: {ms_device:.1f} ms/görsel ({device}), {ms_cpu:.1f} ms/görsel (CPU) | "
           f"Boyut: {size_mb:.1f} MB | Parametre: {n_params/1e6:.2f}M")
+    if real_val:
+        print(f"\nGerçek ortam doğrulama ({real_val['images']} görsel): accuracy {real_val['accuracy']*100:.1f}% | "
+              f"kesin sonuç oranı {real_val['open_set']['recyclable_coverage']*100:.1f}% | "
+              f"kesin sonuç doğruluğu {real_val['open_set']['recyclable_accuracy_when_accepted']*100:.1f}% | "
+              f"'diğer'i atık sanma {real_val['open_set']['other_false_accept_rate']*100:.1f}%")
     print(f"Raporlar: {out_dir}")
 
     if args.deploy:

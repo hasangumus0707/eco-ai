@@ -117,8 +117,10 @@ def test_real_images_are_classified_correctly(client):
     5 sınıfta ~%20 doğruluk verir; bu test onu yakalar.
     """
     correct = total = 0
-    for class_dir in sorted(TEST_IMAGES_DIR.iterdir()):
-        for img_path in sorted(class_dir.iterdir())[:10]:
+    # Yalnızca klasörler ve görseller: macOS'un gizli .DS_Store dosyaları atlanır
+    for class_dir in sorted(d for d in TEST_IMAGES_DIR.iterdir() if d.is_dir()):
+        images = [p for p in sorted(class_dir.iterdir()) if p.suffix.lower() in {".jpg", ".jpeg", ".png"}]
+        for img_path in images[:10]:
             mime = "image/png" if img_path.suffix.lower() == ".png" else "image/jpeg"
             r = client.post("/predict", files={"file": (img_path.name, img_path.read_bytes(), mime)})
             assert r.status_code == 200

@@ -5,10 +5,14 @@ Model eğitim scripti (Transfer Learning).
     python -m training.train --arch mobilenet_v3_large
     python -m training.train --arch resnet18
 
+    # Gerçek dünya ince ayarı: mevcut modelden başla, TACO/Commons ek verisini de kullan,
+    # sonucu ayrı bir dosyaya kaydet (uygulamanın modeline dokunmaz)
+    python -m training.train --extra --init weights/eco_ai_model.pth --name mobilenet_v3_large_v2 --epochs 10 --lr 3e-4
+
 Çıktılar:
-    weights/<arch>.pth                -> en iyi model (doğrulama kaybına göre)
-    reports/<arch>/history.json       -> her epoch'un loss/accuracy değerleri
-    reports/<arch>/training_curves.png -> eğitim grafikleri
+    weights/<name>.pth                -> en iyi model (doğrulama kaybına göre); name varsayılan = arch
+    reports/<name>/history.json       -> her epoch'un loss/accuracy değerleri
+    reports/<name>/training_curves.png -> eğitim grafikleri
 
 OVERFITTING'E KARŞI ALINAN ÖNLEMLER:
     1. Data augmentation        (app/utils/transforms.py)
@@ -51,7 +55,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--patience", type=int, default=4, help="early stopping sabrı (epoch)")
     p.add_argument("--workers", type=int, default=4)
     p.add_argument("--seed", type=int, default=42)
-    return p.parse_args()
+    p.add_argument("--extra", action="store_true",
+                   help="dataset/extra altındaki gerçek ortam görsellerini (TACO, Commons) de kullan")
+    p.add_argument("--init", type=Path, default=None,
+                   help="ImageNet yerine bu .pth dosyasındaki modelden başla (ince ayar)")
+    p.add_argument("--name", default=None, help="çıktı dosyalarının adı (varsayılan: mimari adı)")
+    args = p.parse_args()
+    args.name = args.name or args.arch
+    return args
 
 
 def head_parameters(model: nn.Module, arch: str) -> list[nn.Parameter]:
@@ -120,11 +131,21 @@ def main() -> None:
     device = get_device()
     print(f"Donanım: {device} | Mimari: {args.arch}")
 
-    train_loader = make_loader("train", args.batch_size, args.workers)
-    val_loader = make_loader("val", args.batch_size, args.workers)
+    train_loader = make_loader("train", args.batch_size, args.workers, use_extra=args.extra)
+    val_loader = make_loader("val", args.batch_size, args.workers, use_extra=args.extra)
     print(f"Eğitim görseli: {len(train_loader.dataset)} | Doğrulama görseli: {len(val_loader.dataset)}")
 
-    model = build_model(args.arch, pretrained=True).to(device)
+    if args.init:
+        # İnce ayar: zaten atıkları tanımayı öğrenmiş modelden devam et
+        init_ckpt = torch.load(args.init, map_location="cpu", weights_only=True)
+        if init_ckpt["arch"] != args.arch or init_ckpt["class_names"] != CLASS_NAMES:
+            raise ValueError(f"{args.init} farklı bir mimari/sınıf listesine ait: {init_ckpt['arch']}")
+        model = build_model(args.arch, pretrained=False)
+        model.load_state_dict(init_ckpt["state_dict"])
+        model.to(device)
+        print(f"Başlangıç modeli: {args.init}")
+    else:
+        model = build_model(args.arch, pretrained=True).to(device)
 
     # Dengesiz sınıflar için ağırlıklı kayıp fonksiyonu
     class_weights = compute_class_weights(train_loader.dataset).to(device)
@@ -143,9 +164,9 @@ def main() -> None:
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
 
     WEIGHTS_DIR.mkdir(exist_ok=True)
-    report_dir = REPORTS_DIR / args.arch
+    report_dir = REPORTS_DIR / args.name
     report_dir.mkdir(parents=True, exist_ok=True)
-    weights_path = WEIGHTS_DIR / f"{args.arch}.pth"
+    weights_path = WEIGHTS_DIR / f"{args.name}.pth"
 
     history = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": [], "epoch_seconds": []}
     best_val_loss = float("inf")
@@ -183,6 +204,8 @@ def main() -> None:
                 "epoch": epoch,
                 "val_loss": val_loss,
                 "val_acc": val_acc,
+                "use_extra": args.extra,
+                "init_from": str(args.init) if args.init else "imagenet",
             }, weights_path)
         else:
             epochs_without_improvement += 1
@@ -191,9 +214,9 @@ def main() -> None:
                 break
 
     history["total_minutes"] = (time.time() - start_all) / 60
-    history["args"] = vars(args)
+    history["args"] = {k: (str(v) if isinstance(v, Path) else v) for k, v in vars(args).items()}
     (report_dir / "history.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
-    plot_history(history, report_dir / "training_curves.png", args.arch)
+    plot_history(history, report_dir / "training_curves.png", args.name)
 
     best = history["best_epoch"]
     print(f"\n✅ Eğitim bitti ({history['total_minutes']:.1f} dk). "

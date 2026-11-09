@@ -28,11 +28,15 @@ def get_train_transform() -> transforms.Compose:
     farklı ışıkta) gösterilir. Model böylece "bu şişe tam bu açıda" diye
     ezberlemek yerine "şişe neye benzer" sorusunu öğrenir -> overfitting azalır.
     """
+    # v2 (gerçek dünya ince ayarı): telefon fotoğraflarına benzesin diye daha güçlü
+    # kırpma, ışık/renk değişimi, ara sıra bulanıklık ve gri tonlama eklendi.
     return transforms.Compose([
-        transforms.RandomResizedCrop(IMG_SIZE, scale=(0.7, 1.0)),  # rastgele yakınlaştır/kırp
+        transforms.RandomResizedCrop(IMG_SIZE, scale=(0.5, 1.0)),  # rastgele yakınlaştır/kırp
         transforms.RandomHorizontalFlip(),                          # yatay ayna
-        transforms.RandomRotation(15),                              # ±15° döndür
-        transforms.ColorJitter(brightness=0.25, contrast=0.25, saturation=0.25),  # ışık farkları
+        transforms.RandomRotation(20),                              # ±20° döndür
+        transforms.ColorJitter(brightness=0.35, contrast=0.35, saturation=0.35, hue=0.03),  # ışık farkları
+        transforms.RandomApply([transforms.GaussianBlur(5, sigma=(0.1, 2.0))], p=0.2),  # odak kayması
+        transforms.RandomGrayscale(p=0.05),
         transforms.ToTensor(),
         transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
     ])

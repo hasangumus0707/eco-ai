@@ -229,6 +229,49 @@ test yaptık (`ornek-gorseller/`). Bu fotoğraflarda karışık arka plan, ezilm
 Testi tekrar çalıştırmak için: `cd backend && python -m training.evaluate_real`.
 Görsel bazında sonuçlar: `backend/reports/real_world/results.json`.
 
+### Deney: gerçek ortam verisiyle ince ayar (sonuç: uygulanmadı)
+
+Gerçek dünya testindeki düşüşü azaltmak için modeli gerçek ortamda çekilmiş atık fotoğraflarıyla yeniden eğitmeyi denedik.
+
+**Ek veri** (`dataset/extra/`, git'e girmez):
+
+| Kaynak | İçerik | Görsel |
+|---|---|---:|
+| [TACO](http://tacodataset.org) (CC BY 4.0) | Sokakta, çimde, kumsalda çekilmiş 736 fotoğraftan kırpılan atıklar: plastik 463, kâğıt 291, metal 246, cam 108 | 1.108 |
+| TACO, atıksız bölgeler | Aynı fotoğrafların boş zemin parçaları (çim, asfalt, kum) → "diğer" | 693 |
+| Wikimedia Commons (açık lisanslı) | Şeffaf cam şişe 163, şeffaf plastik şişe 105, kutu 16. 349 alakasız görsel elle elendi | 284 |
+
+Atıksız zemin parçaları bilerek eklendi. Yalnızca atık fotoğrafı ekleseydik model "karışık arka plan = atık"
+kısayolunu öğrenebilirdi. Scriptler: `training/fetch_taco.py`, `training/fetch_commons.py`.
+48 gerçek dünya test görselinin eğitime girmediği hem dosya adıyla hem içerik (md5) karşılaştırmasıyla doğrulandı.
+
+**Yöntem:** Uygulama modelinden başlayarak ince ayar (`train.py --extra --init`), gerçek ortam görselleri eğitimde
+2 kez gösterildi ve daha güçlü augmentation kullanıldı. Karar kuralı **sonuçları görmeden önce** konuldu:
+yeni model ancak Kaggle testinde ≥ %94,5, gerçek ortam doğrulamasında açıkça daha iyi ve 48 görselde
+doğru sonuç ≥ %62,5 **ve** zararlı hata ≤ 2 ise uygulamaya alınacaktı.
+
+| | Mevcut model | Deneme 1 (v2) | Deneme 2 (v3) |
+|---|---:|---:|---:|
+| Kaggle test doğruluğu (1.135) | %95,15 | %95,33 | %95,33 |
+| Gerçek ortam doğrulama doğruluğu (418, TACO + Commons) | %45,9 | **%84,9** | %84,4 |
+| ↳ boş zemini atık sanma oranı | %17,0 | **%2,2** | %3,0 |
+| 48 gerçek dünya görseli: doğru sonuç | **%64,6** | %58,3 | %58,3 |
+| 48 gerçek dünya görseli: zararlı hata | **1** | 4 | 4 |
+
+- **Deneme 1:** Cam şişeler düzeldi (7/8) ama şeffaf plastik şişeler "cam" sanılmaya başlandı. Sebebi: Commons'tan
+  eklenen şeffaf cam şişe görselleri plastikten çok daha fazlaydı ve model "şeffaf şişe = cam" kısayolunu öğrendi.
+- **Deneme 2:** Şeffaf plastik şişe görselleri artırıldı ve dengelendi. Plastik → cam hatası kayboldu, ama zararlı
+  hatalar metal, kâğıt ve "diğer" sınıflarına kaydı.
+- **Karar:** İki deneme de önceden konulan kuralı sağlamadı. **Uygulama mevcut modelle devam ediyor.**
+  48 görsel iki kez karar için kullanıldığından, onlara bakarak bir tur daha ayar yapmak testi geçersiz kılacaktı.
+
+**Çıkarım:** İnce ayar, eğitim verisiyle **aynı kaynaktan** gelen gerçek ortam görsellerinde büyük iyileşme sağladı
+(%46 → %85). Ama farklı tarzdaki bağımsız test görsellerine genellenmedi. Ayrıca mevcut modelin boş zemin
+fotoğraflarının %17'sini atık sandığı ortaya çıktı. Bu zayıflık ancak bu deney sayesinde fark edildi.
+
+Raporlar: `backend/reports/mobilenet_v3_large_v2/`, `backend/reports/mobilenet_v3_large_v3/`,
+`backend/reports/real_world/mobilenet_v3_large_v2|v3/`. Aday model dosyaları (`weights/*_v2.pth`, `*_v3.pth`) git'e girmez.
+
 ---
 
 ## 🛡 Bilinmeyen Nesne (Out-of-Distribution) Kontrolü
@@ -378,10 +421,12 @@ eco-ai/
 │   │   └── data/recycling_config.json
 │   ├── training/
 │   │   ├── prepare_dataset.py      # 12 → 5 sınıf, temizlik, bölme
-│   │   ├── dataset.py              # DataLoader, sınıf ağırlıkları
-│   │   ├── train.py                # eğitim döngüsü
+│   │   ├── dataset.py              # DataLoader, sınıf ağırlıkları, ek veri birleştirme
+│   │   ├── train.py                # eğitim döngüsü (--extra, --init, --name)
 │   │   ├── evaluate.py             # metrikler, confusion matrix, eşik, deploy
 │   │   ├── evaluate_real.py        # gerçek dünya testi
+│   │   ├── fetch_taco.py           # TACO'dan gerçek ortam kırpıntıları (deney)
+│   │   ├── fetch_commons.py        # Wikimedia Commons'tan ek görseller (deney)
 │   │   └── check_device.py
 │   ├── weights/                    # eco_ai_model.pth + model_config.json
 │   ├── reports/                    # grafikler ve metrikler
@@ -410,7 +455,8 @@ eco-ai/
 2. **Plastik ve metal en zayıf sınıflar** (~%92 recall). Bu sınıflarda en az eğitim görseli vardı (863 ve 768).
    Parlak pet şişeler metal veya cam ile karıştırılabilir.
 3. **Hiç görülmemiş nesneler:** İnsan, araç, hayvan gibi nesneler eğitimde yoktu. "Diğer" sınıfı ve güven eşiği bunları
-   çoğu zaman yakalar ama garanti veremez.
+   çoğu zaman yakalar ama garanti veremez. Üzerinde atık olmayan zemin fotoğraflarının (çim, asfalt, kum) ise
+   **%17'si** kesin bir atık sınıfı olarak gösterildi (ince ayar deneyinde ölçüldü).
 4. **Tek nesne varsayımı:** Fotoğrafta birden fazla atık varsa model tek bir kategori döndürür.
 5. **Yalnızca 4 kategori:** Pil, elektronik ve organik atıklar için yönlendirme yapılmaz.
 6. **Kutu renkleri yereldir:** Varsayılan renkler Sıfır Atık Yönetmeliği önerisidir; belediyeye göre değişebilir.

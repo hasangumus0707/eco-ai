@@ -1,0 +1,108 @@
+{
+  "arch": "mobilenet_v3_large",
+  "name": "mobilenet_v3_large_v2",
+  "threshold_calibrated_on": "kaggle+extra val",
+  "best_epoch": 8,
+  "test_images": 1135,
+  "accuracy": 0.9533039647577093,
+  "macro_precision": 0.9529703054604427,
+  "macro_recall": 0.9380602466411521,
+  "macro_f1": 0.9448240061573869,
+  "per_class": {
+    "glass": {
+      "precision": 0.9381107491856677,
+      "recall": 0.9632107023411371,
+      "f1": 0.9504950495049505,
+      "support": 299
+    },
+    "metal": {
+      "precision": 0.9375,
+      "recall": 0.9130434782608695,
+      "f1": 0.9251101321585903,
+      "support": 115
+    },
+    "other": {
+      "precision": 0.9545454545454546,
+      "recall": 0.98,
+      "f1": 0.9671052631578947,
+      "support": 300
+    },
+    "paper": {
+      "precision": 0.9691780821917808,
+      "recall": 0.9725085910652921,
+      "f1": 0.9708404802744426,
+      "support": 291
+    },
+    "plastic": {
+      "precision": 0.9655172413793104,
+      "recall": 0.8615384615384616,
+      "f1": 0.9105691056910569,
+      "support": 130
+    }
+  },
+  "confusion_matrix": [
+    [
+      288,
+      6,
+      4,
+      0,
+      1
+    ],
+    [
+      4,
+      105,
+      3,
+      1,
+      2
+    ],
+    [
+      2,
+      0,
+      294,
+      4,
+      0
+    ],
+    [
+      1,
+      0,
+      6,
+      283,
+      1
+    ],
+    [
+      12,
+      1,
+      1,
+      4,
+      112
+    ]
+  ],
+  "open_set": {
+    "threshold": 0.706,
+    "recyclable_coverage": 0.948502994011976,
+    "recyclable_accuracy_when_accepted": 0.9722222222222222,
+    "other_false_accept_rate": 0.006666666666666667,
+    "n_recyclable": 835,
+    "n_other": 300,
+    "n_other_test_images": 300
+  },
+  "real_world_val": {
+    "images": 406,
+    "accuracy": 0.8571428571428571,
+    "open_set": {
+      "threshold": 0.706,
+      "recyclable_coverage": 0.7785977859778598,
+      "recyclable_accuracy_when_accepted": 0.8909952606635071,
+      "other_false_accept_rate": 0.022222222222222223,
+      "n_recyclable": 271,
+      "n_other": 135,
+      "n_other_test_images": 135
+    }
+  },
+  "inference_ms_per_image": {
+    "mps": 6.38,
+    "cpu": 39.67
+  },
+  "model_size_mb": 17.0,
+  "parameters_million": 4.21
+}

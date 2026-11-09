@@ -20,9 +20,14 @@ from app.utils.transforms import get_eval_transform
 
 
 class ModelService:
-    def __init__(self) -> None:
+    def __init__(self, model_file: str | None = None, threshold: float | None = None) -> None:
+        """
+        Varsayılan: weights/model_config.json'daki uygulama modeli.
+        model_file / threshold verilirse başka bir aday model test edilebilir
+        (ör. evaluate_real --model-file mobilenet_v3_large_v2.pth).
+        """
         config = load_model_config()
-        weights_path: Path = WEIGHTS_DIR / config["model_file"]
+        weights_path: Path = WEIGHTS_DIR / (model_file or config["model_file"])
         if not weights_path.exists():
             raise FileNotFoundError(f"Model dosyası bulunamadı: {weights_path}")
 
@@ -33,7 +38,7 @@ class ModelService:
             raise ValueError("model_config.json ile .pth dosyasındaki sınıf listesi uyuşmuyor.")
 
         self.arch: str = checkpoint["arch"]
-        self.threshold: float = float(config["confidence_threshold"])
+        self.threshold: float = float(threshold if threshold is not None else config["confidence_threshold"])
         self.test_accuracy: float = float(config.get("test_accuracy", 0.0))
         self.model_file: str = weights_path.name
         # Dosyanın parmak izi: /health'te gösterilir; çalışan modelin gerçekten bu .pth olduğunu kanıtlar.

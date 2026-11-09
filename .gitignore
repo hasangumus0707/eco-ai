@@ -8,6 +8,7 @@ venv/
 # --- Veri seti (çok büyük, GitHub'a yüklenmez; herkes kendisi indirir) ---
 dataset/raw/
 dataset/processed/
+dataset/extra/
 *.zip
 
 # --- Node / Frontend ---

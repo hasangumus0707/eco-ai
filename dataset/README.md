@@ -68,11 +68,37 @@ Tam sayılar `dataset/stats.json` dosyasındadır.
    python -m training.prepare_dataset
    ```
 
+## Ek veri: gerçek ortam ince ayar deneyi (isteğe bağlı)
+
+Uygulama modeli yalnızca Kaggle verisiyle eğitildi. İnce ayar deneyi için ek olarak şunlar kullanıldı
+(sonuçlar ve neden uygulanmadığı için ana README'deki "Deney" bölümüne bakın):
+
+| Kaynak | Lisans | Nasıl indirilir |
+|---|---|---|
+| [TACO](http://tacodataset.org) (Proença & Simões, 2020) | CC BY 4.0 | `python -m training.fetch_taco` |
+| Wikimedia Commons | CC0 / kamu malı / CC BY / CC BY-SA | `python -m training.fetch_commons` |
+
+- Commons görselleri indirildikten sonra **elle kontrol edildi**. Elenenler `extra/commons/reddedilen.txt`
+  dosyasına yazılır ve script tekrar çalıştırıldığında indirilmez. Her görselin yazarı ve lisansı
+  `extra/commons/KAYNAKLAR.csv` dosyasındadır.
+- `ornek-gorseller/` altındaki 48 test görseli Commons indirmesinde otomatik olarak hariç tutulur.
+- train/val ayrımı TACO'da fotoğraf bazında, Commons'ta dosya adından türetilen sabit bir değerle yapılır.
+  Böylece aynı görsel asla hem train'de hem val'de bulunmaz.
+- Ek veri **test kümesine hiç girmez**. Test her zaman yalnızca Kaggle test kümesidir.
+
+Ek veriyle eğitim:
+```bash
+python -m training.train --extra --init weights/eco_ai_model.pth --name mobilenet_v3_large_v3 --epochs 10 --lr 3e-4 --patience 3
+python -m training.evaluate --arch mobilenet_v3_large --name mobilenet_v3_large_v3 --extra
+```
+
 ## Klasör yapısı
 
 ```
 dataset/
   raw/garbage_classification/   ← Kaggle'dan gelen orijinal veri (dokunulmaz, git'e girmez)
+  raw/taco/                     ← TACO etiketleri ve orijinal fotoğraflar (git'e girmez)
+  extra/{taco,commons}/{train,val}/<sınıf>/  ← ek veri (git'e girmez)
   processed/                    ← script çıktısı (git'e girmez)
     train/{glass,metal,other,paper,plastic}/
     val/  {...}
